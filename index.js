@@ -116,6 +116,14 @@ async function run() {
             }
 
             const result = await bidsCollection.insertOne(bidData);
+            // Update bid count in jobs collection
+            const updateDoc = {
+                $inc: { bid_count: 1 },
+            }
+            const jobQuery = { _id: new ObjectId(bidData.jobId) }
+            const updateBidCount = await jobsCollection.updateOne(jobQuery, updateDoc)
+            console.log(updateBidCount)
+
             res.send(result);
         })
 
