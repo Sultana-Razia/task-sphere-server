@@ -34,7 +34,7 @@ const verifyToken = (req, res, next) => {
                 console.log(err);
                 return res.status(401).send({ message: 'unauthorized access' });
             }
-            console.log(decoded);
+            // console.log(decoded);
             req.user = decoded;
             next();
         })
@@ -108,7 +108,7 @@ async function run() {
                 jobId: bidData.jobId,
             }
             const alreadyApplied = await bidsCollection.findOne(query);
-            console.log(alreadyApplied);
+            // console.log(alreadyApplied);
             if (alreadyApplied) {
                 return res
                     .status(400)
@@ -122,7 +122,7 @@ async function run() {
             }
             const jobQuery = { _id: new ObjectId(bidData.jobId) }
             const updateBidCount = await jobsCollection.updateOne(jobQuery, updateDoc)
-            console.log(updateBidCount)
+            // console.log(updateBidCount)
 
             res.send(result);
         })
@@ -205,7 +205,7 @@ async function run() {
             const filter = req.query.filter;
             const sort = req.query.sort;
             const search = req.query.search;
-            console.log(size, page);
+            // console.log(size, page);
             let query = {
                 job_title: { $regex: search, $options: 'i' },
             };
